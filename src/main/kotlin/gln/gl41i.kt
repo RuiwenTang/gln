@@ -1161,6 +1161,8 @@ interface gl41i {
                 fb.put(value[i].toFloatArray(), 0, 16)
             }
 
+            fb.flip()
+
             GL41C.nglProgramUniformMatrix4fv(program.name, location, value.size, false, fb.adr)
         }
     }
@@ -1222,6 +1224,7 @@ interface gl41i {
             for (i in 0 until value.size) {
                 fb.put(value[i].toDoubleArray(), 0, 16)
             }
+            fb.flip()
 
             GL41C.nglProgramUniformMatrix4fv(program.name, location, value.size, false, fb.adr)
         }
