@@ -28,6 +28,7 @@ import gln.identifiers.GlProgram
 import gln.program.GlPipeline
 import gln.program.GlPipelines
 import kool.*
+import org.lwjgl.opengl.GL41
 import org.lwjgl.opengl.GL41C
 import org.lwjgl.system.MemoryUtil.NULL
 import org.lwjgl.system.MemoryUtil.memGetInt
@@ -1146,6 +1147,23 @@ interface gl41i {
     fun programUniform(program: GlProgram, location: UniformLocation, value: Mat4) =
             Stack { GL41C.nglProgramUniformMatrix4fv(program.name, location, 1, false, value.toBuffer(it).adr) }
 
+    /**
+     * Specifies the value of a mat4 uniform array variable for the current program object.
+     *
+     * @param program the handle of the program containing the uniform variable to be modified
+     * @param location the location of the uniform variable to be modified
+     * @param value an array of {@code Mat4} values that will be used to update the specified uniform matrix variable
+     */
+    fun programUniform(program: GlProgram, location: UniformLocation, value: Array<Mat4>) {
+        Stack {
+            val fb = it.mallocFloat(value.size * 16)
+            for (i in 0 until value.size) {
+                fb.put(value[i].toFloatArray(), i * 16, 16)
+            }
+
+            GL41C.nglProgramUniformMatrix4fv(program.name, location, value.size, false, fb.adr)
+        }
+    }
     // --- [ glProgramUniformMatrix2dv ] ---
 
     /**
@@ -1191,6 +1209,23 @@ interface gl41i {
     fun programUniform(program: GlProgram, location: UniformLocation, value: Mat4d) =
             Stack { GL41C.nglProgramUniformMatrix4dv(program.name, location, 1, false, value.toBuffer(it).adr) }
 
+    /**
+     * Specifies the value of a mat4 uniform array variable for the current program object.
+     *
+     * @param program the handle of the program containing the uniform variable to be modified
+     * @param location the location of the uniform variable to be modified
+     * @param value an array of {@code Mat4} values that will be used to update the specified uniform matrix variable
+     */
+    fun programUniform(program: GlProgram, location: UniformLocation, value: Array<Mat4d>) {
+        Stack {
+            val fb = it.mallocDouble(value.size * 16)
+            for (i in 0 until value.size) {
+                fb.put(value[i].toDoubleArray(), i * 16, 16)
+            }
+
+            GL41C.nglProgramUniformMatrix4fv(program.name, location, value.size, false, fb.adr)
+        }
+    }
 //    // --- [ glProgramUniformMatrix2x3fv ] --- TODO
 //
 //    /**

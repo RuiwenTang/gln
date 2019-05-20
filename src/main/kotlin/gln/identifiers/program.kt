@@ -454,9 +454,11 @@ inline class GlProgram(val name: Int) {
     fun programUniform(location: UniformLocation, value: Mat2) = gl.programUniform(this, location, value)
     fun programUniform(location: UniformLocation, value: Mat3) = gl.programUniform(this, location, value)
     fun programUniform(location: UniformLocation, value: Mat4) = gl.programUniform(this, location, value)
+    fun programUniform(location: UniformLocation, value: Array<Mat4>) = gl.programUniform(this, location, value)
     fun programUniform(location: UniformLocation, value: Mat2d) = gl.programUniform(this, location, value)
     fun programUniform(location: UniformLocation, value: Mat3d) = gl.programUniform(this, location, value)
     fun programUniform(location: UniformLocation, value: Mat4d) = gl.programUniform(this, location, value)
+    fun programUniform(location: UniformLocation, value: Array<Mat4d>) = gl.programUniform(this, location, value)
 
     // --- [ glShaderSource ] ---
 
