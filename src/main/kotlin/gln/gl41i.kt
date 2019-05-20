@@ -1158,7 +1158,7 @@ interface gl41i {
         Stack {
             val fb = it.mallocFloat(value.size * 16)
             for (i in 0 until value.size) {
-                fb.put(value[i].toFloatArray(), i * 16, 16)
+                fb.put(value[i].toFloatArray(), 0, 16)
             }
 
             GL41C.nglProgramUniformMatrix4fv(program.name, location, value.size, false, fb.adr)
@@ -1220,7 +1220,7 @@ interface gl41i {
         Stack {
             val fb = it.mallocDouble(value.size * 16)
             for (i in 0 until value.size) {
-                fb.put(value[i].toDoubleArray(), i * 16, 16)
+                fb.put(value[i].toDoubleArray(), 0, 16)
             }
 
             GL41C.nglProgramUniformMatrix4fv(program.name, location, value.size, false, fb.adr)
